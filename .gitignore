@@ -1,0 +1,9 @@
+dist/
+build/
+_apartado/
+modelo/
+__pycache__/
+*.spec
+build_log.txt
+chat_config.json
+chat_registro.txt
