@@ -17,7 +17,7 @@ import subprocess
 import sys
 import zipfile
 
-VERSION = "1.0"
+VERSION = "1.1"
 NOMBRE = "LMUChatRadio"
 AQUI = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(AQUI, "dist")
@@ -82,7 +82,7 @@ def compilar():
              "--collect-all", "onnxruntime", "--collect-all", "tokenizers",
              "--collect-all", "edge_tts", "--collect-data", "certifi",
              "--collect-all", "sounddevice", "--hidden-import", "_sounddevice_data",
-             "--hidden-import", "win32com.client", "--hidden-import", "pygame._sdl2.audio",
+             "--hidden-import", "win32com.client", "--hidden-import", "pygame._sdl2.audio", "--hidden-import", "pygame.sndarray",
              "--exclude-module", "torch", "--exclude-module", "matplotlib",
              "--exclude-module", "scipy", "--exclude-module", "pandas",
              # no hacen falta y pesan: "av" (video, 50 MB; ver cargar_whisper), imagenes, y el

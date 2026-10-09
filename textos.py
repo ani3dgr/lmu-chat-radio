@@ -24,7 +24,7 @@ TEXTOS = {
         "traducir_chat": "Traducir el chat a mi idioma", "prueba": "Modo prueba (no manda nada al chat)",
         "quien": "Al leer, decir", "q_ambos": "Nombre y número", "q_numero": "El número de coche",
         "q_nombre": "El nombre",
-        "micro": "Micrófono", "salida": "Salida de voz", "windows": "(el de Windows)", "probar": "Probar voz",
+        "micro": "Micrófono", "salida": "Salida de voz", "windows": "(el de Windows)", "volumen": "Volumen de la voz", "volumen_pitido": "Volumen del pitido", "probar": "Probar voz",
         "cargando": "Cargando el reconocimiento de voz…", "error_whisper": "Error al cargar el reconocimiento de voz",
         "listo": "Listo", "sin_juego": "Esperando al juego…", "grabando": "Escuchando… (pulsa para terminar)",
         "procesando": "Pensando…", "confirmando": "Pulsa para enviar",
@@ -43,7 +43,7 @@ TEXTOS = {
         "traducir_chat": "Translate the chat into my language", "prueba": "Test mode (sends nothing to the chat)",
         "quien": "When reading, say", "q_ambos": "Name and number", "q_numero": "The car number",
         "q_nombre": "The name",
-        "micro": "Microphone", "salida": "Voice output", "windows": "(Windows default)", "probar": "Test voice",
+        "micro": "Microphone", "salida": "Voice output", "windows": "(Windows default)", "volumen": "Voice volume", "volumen_pitido": "Beep volume", "probar": "Test voice",
         "cargando": "Loading speech recognition…", "error_whisper": "Speech recognition failed to load",
         "listo": "Ready", "sin_juego": "Waiting for the game…", "grabando": "Listening… (press to finish)",
         "procesando": "Thinking…", "confirmando": "Press to send",
@@ -62,7 +62,7 @@ TEXTOS = {
         "traducir_chat": "Traduire le chat dans ma langue", "prueba": "Mode test (n'envoie rien au chat)",
         "quien": "En lisant, dire", "q_ambos": "Nom et numéro", "q_numero": "Le numéro de voiture",
         "q_nombre": "Le nom",
-        "micro": "Micro", "salida": "Sortie de la voix", "windows": "(celle de Windows)", "probar": "Tester la voix",
+        "micro": "Micro", "salida": "Sortie de la voix", "windows": "(celle de Windows)", "volumen": "Volume de la voix", "volumen_pitido": "Volume du bip", "probar": "Tester la voix",
         "cargando": "Chargement de la reconnaissance vocale…", "error_whisper": "Échec du chargement de la reconnaissance vocale",
         "listo": "Prêt", "sin_juego": "En attente du jeu…", "grabando": "J'écoute… (appuyez pour terminer)",
         "procesando": "Je réfléchis…", "confirmando": "Appuyez pour envoyer",
@@ -81,7 +81,7 @@ TEXTOS = {
         "traducir_chat": "Traduci la chat nella mia lingua", "prueba": "Modalità prova (non invia nulla alla chat)",
         "quien": "Leggendo, dire", "q_ambos": "Nome e numero", "q_numero": "Il numero della macchina",
         "q_nombre": "Il nome",
-        "micro": "Microfono", "salida": "Uscita della voce", "windows": "(quello di Windows)", "probar": "Prova voce",
+        "micro": "Microfono", "salida": "Uscita della voce", "windows": "(quello di Windows)", "volumen": "Volume della voce", "volumen_pitido": "Volume del bip", "probar": "Prova voce",
         "cargando": "Caricamento del riconoscimento vocale…", "error_whisper": "Errore nel caricare il riconoscimento vocale",
         "listo": "Pronto", "sin_juego": "In attesa del gioco…", "grabando": "Ascolto… (premi per finire)",
         "procesando": "Ci penso…", "confirmando": "Premi per inviare",
@@ -100,7 +100,7 @@ TEXTOS = {
         "traducir_chat": "Chat in meine Sprache übersetzen", "prueba": "Testmodus (sendet nichts in den Chat)",
         "quien": "Beim Vorlesen sagen", "q_ambos": "Name und Nummer", "q_numero": "Die Startnummer",
         "q_nombre": "Den Namen",
-        "micro": "Mikrofon", "salida": "Sprachausgabe", "windows": "(Windows-Standard)", "probar": "Stimme testen",
+        "micro": "Mikrofon", "salida": "Sprachausgabe", "windows": "(Windows-Standard)", "volumen": "Lautstärke Stimme", "volumen_pitido": "Lautstärke Piepton", "probar": "Stimme testen",
         "cargando": "Spracherkennung wird geladen…", "error_whisper": "Spracherkennung konnte nicht geladen werden",
         "listo": "Bereit", "sin_juego": "Warte auf das Spiel…", "grabando": "Ich höre zu… (drücken zum Beenden)",
         "procesando": "Moment…", "confirmando": "Drücken zum Senden",
@@ -119,7 +119,7 @@ TEXTOS = {
         "traducir_chat": "Tłumacz czat na mój język", "prueba": "Tryb testowy (nic nie wysyła na czat)",
         "quien": "Czytając, podawaj", "q_ambos": "Nazwisko i numer", "q_numero": "Numer samochodu",
         "q_nombre": "Nazwisko",
-        "micro": "Mikrofon", "salida": "Wyjście głosu", "windows": "(domyślne Windows)", "probar": "Test głosu",
+        "micro": "Mikrofon", "salida": "Wyjście głosu", "windows": "(domyślne Windows)", "volumen": "Głośność głosu", "volumen_pitido": "Głośność sygnału", "probar": "Test głosu",
         "cargando": "Ładowanie rozpoznawania mowy…", "error_whisper": "Nie udało się załadować rozpoznawania mowy",
         "listo": "Gotowe", "sin_juego": "Czekam na grę…", "grabando": "Słucham… (naciśnij, aby zakończyć)",
         "procesando": "Myślę…", "confirmando": "Naciśnij, aby wysłać",
@@ -138,7 +138,7 @@ TEXTOS = {
         "traducir_chat": "Traduzir o chat para o meu idioma", "prueba": "Modo de teste (não envia nada para o chat)",
         "quien": "Ao ler, dizer", "q_ambos": "Nome e número", "q_numero": "O número do carro",
         "q_nombre": "O nome",
-        "micro": "Microfone", "salida": "Saída de voz", "windows": "(o do Windows)", "probar": "Testar voz",
+        "micro": "Microfone", "salida": "Saída de voz", "windows": "(o do Windows)", "volumen": "Volume da voz", "volumen_pitido": "Volume do bip", "probar": "Testar voz",
         "cargando": "A carregar o reconhecimento de voz…", "error_whisper": "Erro ao carregar o reconhecimento de voz",
         "listo": "Pronto", "sin_juego": "À espera do jogo…", "grabando": "A ouvir… (carrega para terminar)",
         "procesando": "A pensar…", "confirmando": "Carrega para enviar",
@@ -168,6 +168,20 @@ Ejemplos:
 • «Suerte a todos» → Good luck everyone
 
 Si dices un número de coche, el programa busca quién lo lleva y pone su nombre. Si el número está repetido en la sala o no aparece, escribe solo el número, para no equivocarse de piloto.
+
+A QUIÉN VA EL MENSAJE
+Muchas veces no sabes el número de los demás. No pasa nada: di dónde está.
+• «Dile al de delante…» / «Dile al de detrás…» → el coche que tienes justo delante o detrás en la pista.
+• «Dile al de delante de LMP2…» → el LMP2 más cercano por delante (valen Hypercar, LMP2, LMP3 y GT3).
+• «Dile al que me acaba de adelantar…» → el último que te ha pasado (vale durante un minuto).
+• «Dile al tercero…» → el tercero de TU clase. «Dile al tercero de Hypercar…» → el tercero de esa clase. «…de la general» → de toda la carrera.
+• «Dile al que está en posición 15…» → lo mismo que «al decimoquinto», pero más fácil de decir.
+
+¡OJO, NO ES LO MISMO!
+• «Dile al 15…» → el coche que lleva el NÚMERO 15.
+• «Dile al que está en posición 15…» o «al que va 15…» → el que va el DECIMOQUINTO.
+
+Todo se calcula en el momento en que pulsas el botón: aunque luego te adelante o cambie de puesto, el mensaje va a quien era. Al repetírtelo te dice su número y su clase («Para el 33 de GT3: …»); si no es él, no confirmes. Si no lo encuentra, te lo dice y no se envía nada.
 
 LEER EL CHAT
 Los mensajes de los demás se dicen en voz alta, traducidos a tu idioma si tienes la casilla marcada. Puedes elegir si dice el nombre, el número de coche o las dos cosas (en el chat el juego acorta los nombres, así que el número suele ayudar).
@@ -202,6 +216,20 @@ Examples:
 
 If you say a car number, the program looks up who drives it and adds their name. If that number appears twice in the server, or isn't there, it writes only the number, so it never names the wrong driver.
 
+WHO THE MESSAGE IS FOR
+You often don't know the other drivers' numbers. No problem: say where they are.
+• "Tell the car in front…" / "Tell the car behind…" → the car right in front of or behind you on track.
+• "Tell the car in front in LMP2…" → the nearest LMP2 ahead (Hypercar, LMP2, LMP3 and GT3 work).
+• "Tell who just overtook me…" → the last car that passed you (valid for one minute).
+• "Tell the third…" → third in YOUR class. "Tell the third in Hypercar…" → third in that class. "…overall" → in the whole race.
+• "Tell the car in position 15…" → the same as "the fifteenth", but easier to say.
+
+CAREFUL, THEY ARE NOT THE SAME!
+• "Tell car 15…" / "Tell 15…" → the car with the NUMBER 15.
+• "Tell the car in position 15…" → the car running FIFTEENTH.
+
+Everything is worked out the moment you press the button: even if they overtake you or change places afterwards, the message goes to that car. When it reads it back it says their number and class ("To car 33, GT3: …"); if it's not them, don't confirm. If it can't find the car, it says so and nothing is sent.
+
 READING THE CHAT
 Messages from other drivers are read aloud, translated into your language if that box is ticked. You can choose whether it says the name, the car number or both (the game shortens names in the chat, so the number usually helps).
 If a message contains your number or your surname, it starts with "For you".
@@ -234,6 +262,20 @@ Exemples :
 • « Bonne chance à tous » → Good luck everyone
 
 Si vous dites un numéro de voiture, le programme cherche qui la pilote et ajoute son nom. Si le numéro est en double sur le serveur, ou absent, il n'écrit que le numéro, pour ne jamais se tromper de pilote.
+
+À QUI VA LE MESSAGE
+Souvent vous ne connaissez pas le numéro des autres. Pas grave : dites où ils sont.
+• « Dis à celui devant… » / « Dis à celui derrière… » → la voiture juste devant ou derrière vous en piste.
+• « Dis à celui devant en LMP2… » → la LMP2 la plus proche devant (Hypercar, LMP2, LMP3 et GT3).
+• « Dis à celui qui m'a dépassé… » → le dernier qui vous a doublé (valable une minute).
+• « Dis au troisième… » → le troisième de VOTRE catégorie. « Dis au troisième en Hypercar… » → le troisième de cette catégorie. « …au général » → de toute la course.
+• « Dis à celui en position 15… » → comme « au quinzième », plus facile à dire.
+
+ATTENTION, CE N'EST PAS PAREIL !
+• « Dis à la 15… » → la voiture qui porte le NUMÉRO 15.
+• « Dis à celui en position 15… » → celui qui est QUINZIÈME.
+
+Tout est calculé au moment où vous appuyez sur le bouton : même s'il vous double ensuite, le message va à cette voiture. En le répétant, le programme dit son numéro et sa catégorie (« Pour la 33 en GT3 : … ») ; si ce n'est pas lui, ne confirmez pas. S'il ne la trouve pas, il le dit et rien n'est envoyé.
 
 LIRE LE CHAT
 Les messages des autres sont lus à voix haute, traduits dans votre langue si la case est cochée. Vous pouvez choisir s'il dit le nom, le numéro de voiture ou les deux (le jeu raccourcit les noms dans le chat, le numéro aide souvent).
@@ -268,6 +310,20 @@ Esempi:
 
 Se dici un numero di macchina, il programma cerca chi la guida e aggiunge il suo nome. Se il numero è ripetuto nel server, o non c'è, scrive solo il numero, per non sbagliare pilota.
 
+A CHI VA IL MESSAGGIO
+Spesso non sai il numero degli altri. Nessun problema: di' dove sono.
+• «Di a quello davanti…» / «Di a quello dietro…» → la macchina subito davanti o dietro di te in pista.
+• «Di a quello davanti in LMP2…» → la LMP2 più vicina davanti (Hypercar, LMP2, LMP3 e GT3).
+• «Di a quello che mi ha sorpassato…» → l'ultimo che ti ha passato (vale per un minuto).
+• «Di al terzo…» → il terzo della TUA classe. «Di al terzo di Hypercar…» → il terzo di quella classe. «…della generale» → di tutta la gara.
+• «Di a quello in posizione 15…» → come «al quindicesimo», ma più facile da dire.
+
+ATTENZIONE, NON È LA STESSA COSA!
+• «Di alla 15…» → la macchina con il NUMERO 15.
+• «Di a quello in posizione 15…» → quello che è QUINDICESIMO.
+
+Tutto si calcola nel momento in cui premi il pulsante: anche se poi ti sorpassa o cambia posizione, il messaggio va a quella macchina. Quando lo ripete ti dice numero e classe («Per la 33 in GT3: …»); se non è lui, non confermare. Se non la trova te lo dice e non invia niente.
+
 LEGGERE LA CHAT
 I messaggi degli altri vengono letti ad alta voce, tradotti nella tua lingua se la casella è spuntata. Puoi scegliere se dire il nome, il numero della macchina o entrambi (in chat il gioco accorcia i nomi, quindi il numero di solito aiuta).
 Se un messaggio contiene il tuo numero o il tuo cognome, inizia con «Per te».
@@ -300,6 +356,20 @@ Beispiele:
 • „Viel Glück an alle“ → Good luck everyone
 
 Wenn du eine Startnummer sagst, sucht das Programm, wer das Auto fährt, und fügt den Namen hinzu. Gibt es die Nummer auf dem Server doppelt oder gar nicht, schreibt es nur die Nummer, damit nie der falsche Fahrer genannt wird.
+
+AN WEN GEHT DIE NACHRICHT
+Oft kennst du die Nummer der anderen nicht. Kein Problem: sag, wo er ist.
+• „Sag dem vor mir…“ / „Sag dem hinter mir…“ → das Auto direkt vor oder hinter dir auf der Strecke.
+• „Sag dem vor mir in LMP2…“ → das nächste LMP2 vor dir (Hypercar, LMP2, LMP3 und GT3).
+• „Sag dem, der mich gerade überholt hat…“ → der Letzte, der dich überholt hat (gilt eine Minute).
+• „Sag dem Dritten…“ → der Dritte DEINER Klasse. „Sag dem Dritten in Hypercar…“ → der Dritte dieser Klasse. „…gesamt“ → im ganzen Rennen.
+• „Sag dem auf Platz 15…“ → wie „dem Fünfzehnten“, nur leichter zu sagen.
+
+ACHTUNG, DAS IST NICHT DASSELBE!
+• „Sag der 15…“ → das Auto mit der STARTNUMMER 15.
+• „Sag dem auf Platz 15…“ → der FÜNFZEHNTE.
+
+Alles wird in dem Moment berechnet, in dem du die Taste drückst: auch wenn er dich danach überholt, geht die Nachricht an dieses Auto. Beim Wiederholen sagt das Programm Nummer und Klasse („An Nummer 33, GT3: …“); ist er es nicht, bestätige nicht. Findet es das Auto nicht, sagt es das und sendet nichts.
 
 CHAT VORLESEN
 Nachrichten der anderen werden vorgelesen, in deine Sprache übersetzt, wenn das Kästchen angehakt ist. Du kannst wählen, ob der Name, die Startnummer oder beides gesagt wird (das Spiel kürzt die Namen im Chat, die Nummer hilft meistens).
@@ -334,6 +404,20 @@ Przykłady:
 
 Jeśli podasz numer samochodu, program sprawdzi, kto nim jedzie, i doda jego nazwisko. Jeśli numer powtarza się na serwerze albo go nie ma, napisze sam numer, żeby nigdy nie pomylić kierowcy.
 
+DO KOGO IDZIE WIADOMOŚĆ
+Często nie znasz numerów innych. Nic nie szkodzi: powiedz, gdzie jest.
+• „Powiedz temu przede mną…” / „Powiedz temu za mną…” → samochód tuż przed tobą lub za tobą na torze.
+• „Powiedz temu przede mną z LMP2…” → najbliższe LMP2 z przodu (Hypercar, LMP2, LMP3 i GT3).
+• „Powiedz temu, który mnie wyprzedził…” → ostatni, który cię wyprzedził (ważne przez minutę).
+• „Powiedz trzeciemu…” → trzeci w TWOJEJ klasie. „…z Hypercar” → w tej klasie. „…w klasyfikacji ogólnej” → w całym wyścigu.
+• „Powiedz temu na pozycji 15…” → to samo co „piętnastemu”, ale łatwiej powiedzieć.
+
+UWAGA, TO NIE TO SAMO!
+• „Powiedz 15…” → samochód z NUMEREM 15.
+• „Powiedz temu na pozycji 15…” → ten, który jest PIĘTNASTY.
+
+Wszystko liczy się w chwili naciśnięcia przycisku: nawet jeśli potem cię wyprzedzi, wiadomość idzie do tego samochodu. Powtarzając, program podaje numer i klasę („Do numeru 33, GT3: …”); jeśli to nie on, nie potwierdzaj. Jeśli go nie znajdzie, powie to i nic nie wyśle.
+
 CZYTANIE CZATU
 Wiadomości innych są czytane na głos, przetłumaczone na twój język, jeśli pole jest zaznaczone. Możesz wybrać, czy podaje nazwisko, numer samochodu, czy oba (gra skraca nazwiska na czacie, więc numer zwykle pomaga).
 Jeśli wiadomość zawiera twój numer lub nazwisko, zaczyna się od „Do ciebie”.
@@ -366,6 +450,20 @@ Exemplos:
 • «Boa sorte a todos» → Good luck everyone
 
 Se disseres um número de carro, o programa procura quem o conduz e junta o nome. Se o número estiver repetido no servidor, ou não aparecer, escreve só o número, para nunca trocar de piloto.
+
+PARA QUEM VAI A MENSAGEM
+Muitas vezes não sabes o número dos outros. Não faz mal: diz onde está.
+• «Diz ao da frente…» / «Diz ao de trás…» → o carro logo à tua frente ou atrás de ti em pista.
+• «Diz ao da frente de LMP2…» → o LMP2 mais próximo à frente (Hypercar, LMP2, LMP3 e GT3).
+• «Diz ao que me acabou de ultrapassar…» → o último que te passou (vale durante um minuto).
+• «Diz ao terceiro…» → o terceiro da TUA classe. «Diz ao terceiro de Hypercar…» → o terceiro dessa classe. «…da geral» → de toda a corrida.
+• «Diz ao que está na posição 15…» → o mesmo que «ao décimo quinto», mas mais fácil de dizer.
+
+ATENÇÃO, NÃO É A MESMA COISA!
+• «Diz ao 15…» → o carro com o NÚMERO 15.
+• «Diz ao que está na posição 15…» → o que vai em DÉCIMO QUINTO.
+
+Tudo é calculado no momento em que carregas no botão: mesmo que depois te ultrapasse, a mensagem vai para esse carro. Ao repetir, o programa diz o número e a classe («Para o 33 de GT3: …»); se não for ele, não confirmes. Se não o encontrar, diz-to e nada é enviado.
 
 LER O CHAT
 As mensagens dos outros são lidas em voz alta, traduzidas para o teu idioma se a caixa estiver marcada. Podes escolher se diz o nome, o número do carro ou as duas coisas (no chat o jogo encurta os nomes, por isso o número costuma ajudar).

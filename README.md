@@ -17,6 +17,18 @@ Free, and it always will be.
 
 When you name a car number, it looks up who is driving it and adds their name. If that number is duplicated in the server (it happens in public lobbies) or isn't there, it writes only the number — it never names the wrong driver.
 
+**Don't know their number? Say where they are.** In the game you rarely see other drivers' numbers, so you can also say:
+
+- *"Tell the car in front…"* / *"Tell the car behind…"* — the car right ahead of or behind you on track. *"…in LMP2"* to pick a class.
+- *"Tell who just overtook me…"* — the last car that passed you.
+- *"Tell the third…"* — third in **your** class; *"the third in Hypercar"*, *"…overall"*.
+- *"Tell the car in position 15…"* — easier to say than "fifteenth".
+
+Careful: *"Tell 15…"* is the car with **number** 15; *"Tell the car in position 15…"* is the one running **fifteenth**.
+Everything is captured **the moment you press the button**, so it doesn't matter if they pass you while you speak and confirm. The read-back tells you who it found (*"To car 33, GT3: …"*) — if it's not them, just don't confirm.
+
+**Questions stay questions.** Speech recognition hears the words but not the intonation; the program adds the question mark when the sentence is a question (*"Are you OK?"*), and *"ask car 33 if…"* works too.
+
 **Hear the chat.** Messages from other drivers are read aloud through your headset. You choose whether it says the driver's name, the car number and class, or both — useful because the game shortens names in the chat. If a message mentions your number or your surname, it starts with *"For you"*.
 
 **Translation, both ways, optional.** You speak in your language and it writes in English. What others write is translated into your language. Each direction can be switched off.
@@ -26,6 +38,8 @@ When you name a car number, it looks up who is driving it and adds their name. I
 **Your button or your key.** Any button of any wheel, button box or controller, or any keyboard key.
 
 **Seven languages:** English, Español, Français, Italiano, Deutsch, Polski, Português. Window, instructions and voice.
+
+**Volume controls** for the voice and for the beeps, separately, right in the window.
 
 **Test mode** (on by default): everything works but nothing is sent, so you can practise without bothering anyone. Untick it when you're ready.
 

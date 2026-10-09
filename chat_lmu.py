@@ -37,6 +37,8 @@ import urllib.parse
 import urllib.request
 import winsound
 
+import objetivos
+
 os.environ["SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS"] = "1"
 os.environ["SDL_VIDEODRIVER"] = "dummy"
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
@@ -65,6 +67,8 @@ POR_DEFECTO = {
     "salida_voz": "",           # "" = la de Windows
     "modo_prueba": True,        # no manda nada al chat: solo lo dice
     "quien": "ambos",           # al leer: "nombre", "numero" o "ambos"
+    "volumen": 80,              # 0-100: la voz del programa
+    "volumen_pitido": 40,       # 0-100: los pitidos de grabar y enviar, aparte
 }
 
 IDIOMAS = [("es", "Español"), ("en", "English"), ("fr", "Français"), ("it", "Italiano"),
@@ -76,37 +80,44 @@ VOCES = {"es": "es-ES-AlvaroNeural", "en": "en-GB-RyanNeural", "fr": "fr-FR-Henr
 
 # Lo que dice el programa en voz alta, en cada idioma.
 FRASES = {
-    "es": {"numero": "El {n} de {c}", "ambos": "{q}, el {n} de {c}",
+    "es": {"para_clase": "Para el {n} de {c}: {m}", "no_coche": "No encuentro a ese coche, no se envía nada",
+           "numero": "El {n} de {c}", "ambos": "{q}, el {n} de {c}",
            "listo": "Chat preparado", "para": "Para el {n}: {m}", "todos": "A todos: {m}",
            "enviado": "Enviado", "no_enviado": "Mensaje no enviado", "no_entendido": "No te he entendido",
            "dice": "{q} dice: {m}", "para_ti": "Para ti. ", "fallo": "No he podido enviarlo, el juego no contesta",
            "prueba": "Modo prueba, no se ha enviado"},
-    "en": {"numero": "Car {n}, {c}", "ambos": "{q}, car {n}, {c}",
+    "en": {"para_clase": "To car {n}, {c}: {m}", "no_coche": "I can't find that car, nothing sent",
+           "numero": "Car {n}, {c}", "ambos": "{q}, car {n}, {c}",
            "listo": "Chat ready", "para": "To car {n}: {m}", "todos": "To everyone: {m}",
            "enviado": "Sent", "no_enviado": "Message not sent", "no_entendido": "I didn't understand you",
            "dice": "{q} says: {m}", "para_ti": "For you. ", "fallo": "Could not send it, the game is not answering",
            "prueba": "Test mode, nothing was sent"},
-    "fr": {"numero": "La {n} en {c}", "ambos": "{q}, la {n} en {c}",
+    "fr": {"para_clase": "Pour la {n} en {c} : {m}", "no_coche": "Je ne trouve pas cette voiture, rien n'est envoyé",
+           "numero": "La {n} en {c}", "ambos": "{q}, la {n} en {c}",
            "listo": "Chat prêt", "para": "Pour la {n} : {m}", "todos": "À tous : {m}",
            "enviado": "Envoyé", "no_enviado": "Message non envoyé", "no_entendido": "Je n'ai pas compris",
            "dice": "{q} dit : {m}", "para_ti": "Pour toi. ", "fallo": "Envoi impossible, le jeu ne répond pas",
            "prueba": "Mode test, rien n'a été envoyé"},
-    "it": {"numero": "La {n} in {c}", "ambos": "{q}, la {n} in {c}",
+    "it": {"para_clase": "Per la {n} in {c}: {m}", "no_coche": "Non trovo quella macchina, non invio niente",
+           "numero": "La {n} in {c}", "ambos": "{q}, la {n} in {c}",
            "listo": "Chat pronta", "para": "Per la {n}: {m}", "todos": "A tutti: {m}",
            "enviado": "Inviato", "no_enviado": "Messaggio non inviato", "no_entendido": "Non ho capito",
            "dice": "{q} dice: {m}", "para_ti": "Per te. ", "fallo": "Invio non riuscito, il gioco non risponde",
            "prueba": "Modalità prova, non è stato inviato"},
-    "de": {"numero": "Nummer {n}, {c}", "ambos": "{q}, Nummer {n}, {c}",
+    "de": {"para_clase": "An Nummer {n}, {c}: {m}", "no_coche": "Ich finde das Auto nicht, nichts gesendet",
+           "numero": "Nummer {n}, {c}", "ambos": "{q}, Nummer {n}, {c}",
            "listo": "Chat bereit", "para": "An Nummer {n}: {m}", "todos": "An alle: {m}",
            "enviado": "Gesendet", "no_enviado": "Nachricht nicht gesendet", "no_entendido": "Ich habe dich nicht verstanden",
            "dice": "{q} sagt: {m}", "para_ti": "Für dich. ", "fallo": "Senden fehlgeschlagen, das Spiel antwortet nicht",
            "prueba": "Testmodus, nichts gesendet"},
-    "pl": {"numero": "Numer {n}, {c}", "ambos": "{q}, numer {n}, {c}",
+    "pl": {"para_clase": "Do numeru {n}, {c}: {m}", "no_coche": "Nie znajduję tego samochodu, nic nie wysłano",
+           "numero": "Numer {n}, {c}", "ambos": "{q}, numer {n}, {c}",
            "listo": "Czat gotowy", "para": "Do numeru {n}: {m}", "todos": "Do wszystkich: {m}",
            "enviado": "Wysłano", "no_enviado": "Wiadomość nie wysłana", "no_entendido": "Nie zrozumiałem",
            "dice": "{q} pisze: {m}", "para_ti": "Do ciebie. ", "fallo": "Nie udało się wysłać, gra nie odpowiada",
            "prueba": "Tryb testowy, nic nie wysłano"},
-    "pt": {"numero": "O {n} de {c}", "ambos": "{q}, o {n} de {c}",
+    "pt": {"para_clase": "Para o {n} de {c}: {m}", "no_coche": "Não encontro esse carro, nada foi enviado",
+           "numero": "O {n} de {c}", "ambos": "{q}, o {n} de {c}",
            "listo": "Chat pronto", "para": "Para o {n}: {m}", "todos": "Para todos: {m}",
            "enviado": "Enviado", "no_enviado": "Mensagem não enviada", "no_entendido": "Não percebi",
            "dice": "{q} diz: {m}", "para_ti": "Para ti. ", "fallo": "Não consegui enviar, o jogo não responde",
@@ -115,13 +126,13 @@ FRASES = {
 
 # Para que Whisper escriba los numeros con cifras y sepa de que va la cosa.
 PISTA_WHISPER = {
-    "es": "Dile al coche 33 que lo siento por el toque. Escribe buena carrera a todos.",
-    "en": "Tell car 33 sorry for the contact. Write good race everyone.",
-    "fr": "Dis à la voiture 33 désolé pour le contact. Écris bonne course à tous.",
-    "it": "Di alla macchina 33 scusa per il contatto. Scrivi buona gara a tutti.",
-    "de": "Sag Auto 33 sorry für den Kontakt. Schreib gutes Rennen an alle.",
-    "pl": "Powiedz samochodowi 33 przepraszam za kontakt. Napisz dobrego wyścigu wszystkim.",
-    "pt": "Diz ao carro 33 desculpa pelo toque. Escreve boa corrida a todos.",
+    "es": "Dile al coche 33 que lo siento por el toque. ¿Alguien sabe cuánto queda? ¿Estás bien? Escribe buena carrera a todos.",
+    "en": "Tell car 33 sorry for the contact. Does anyone know how long is left? Are you OK? Write good race everyone.",
+    "fr": "Dis à la voiture 33 désolé pour le contact. Quelqu'un sait combien il reste ? Ça va ? Écris bonne course à tous.",
+    "it": "Di alla macchina 33 scusa per il contatto. Qualcuno sa quanto manca? Stai bene? Scrivi buona gara a tutti.",
+    "de": "Sag Auto 33 sorry für den Kontakt. Weiß jemand, wie lange es noch geht? Alles okay? Schreib gutes Rennen an alle.",
+    "pl": "Powiedz samochodowi 33 przepraszam za kontakt. Czy ktoś wie, ile zostało? Wszystko w porządku? Napisz dobrego wyścigu wszystkim.",
+    "pt": "Diz ao carro 33 desculpa pelo toque. Alguém sabe quanto falta? Estás bem? Escreve boa corrida a todos.",
 }
 
 # Frases que Whisper se inventa cuando solo oye ruido.
@@ -267,6 +278,21 @@ def autoprueba():
 
 
 # ---------------------------------------------------------------- traducir
+# Expresiones de carreras que el traductor entiende mal tal cual: "lo siento por
+# el toque" salia "sorry for the touch" y "que buena pasada", "what a good time".
+# Solo se cambian en lo que se manda a traducir; tu mensaje se repite como lo dijiste.
+GLOSARIO = {
+    "es": [(r"\btoque(s)?\b", r"contacto\1"), (r"\bbuena pasada\b", "buena maniobra de adelantamiento"),
+           (r"\bme has sacado\b", "me has echado fuera de la pista")],
+}
+
+
+def para_traducir(texto, idioma):
+    for patron, cambio in GLOSARIO.get(idioma, []):
+        texto = re.sub(patron, cambio, texto, flags=re.I)
+    return texto
+
+
 def traducir(texto, destino, origen="auto"):
     """Devuelve (traduccion, idioma_detectado). Si falla, (None, None)."""
     try:
@@ -282,8 +308,10 @@ def traducir(texto, destino, origen="auto"):
 
 
 # ---------------------------------------------------------------- entender la orden
+PREGUNTAR = (r"(?:preg[uú]ntale|preg[uú]ntales|pregunta|ask|demande|chiedi|frag|frage|zapytaj|"
+             r"pergunta|pergunte)")
 ORDEN = (r"(?:d[ií]le|d[ií]|escr[ií]bele|escribe|pon|tell|say|write|type|message|dis|[ée]cris|d[ìi]'?|"
-         r"scrivi|sag|sage|schreib|schreibe|powiedz|napisz|diz|diga|escreve|escreva)")
+         r"scrivi|sag|sage|schreib|schreibe|powiedz|napisz|diz|diga|escreve|escreva|" + PREGUNTAR[3:-1] + r")")
 COCHE = (r"(?:coche|auto|carro|car|voiture|macchina|vettura|wagen|fahrzeug|samoch[oó]d\w*|"
          r"n[úu]mero|number|nummer|num[ée]ro|numer)")
 ENLACE = r"(?:al|a\s+la|a\s+el|a|el|to|au|[àa]\s+la|[àa]|alla|al|dem|an|der|do|ao|para|for)"
@@ -298,21 +326,89 @@ RE_SIN_COCHE = re.compile(
     rf"do\s+wszystkich)\b)?[\s,:]*(?:{QUE}\b)?[\s,:]*(?P<m>.+)$", re.I | re.S)
 
 
+def _pregunta_indirecta(texto, resto):
+    """'Dile al 33 que si esta bien' / 'Preguntale al 33 si esta bien': es una
+    pregunta. Se quita el "si" y se le ponen los signos. (Sin tilde: "dile que
+    si" es un si de respuesta, y ese se queda como esta.)"""
+    preguntando = bool(re.match(rf"^\s*{PREGUNTAR}\b", texto, re.I))
+    si = r"(?:si|if|whether|ob|czy" + (r"|se)" if preguntando else r")")
+    m = re.match(rf"^{si}\s+(.+)$", resto, re.I | re.S)
+    if m:
+        resto, preguntando = m.group(1), True
+    resto = resto[0].upper() + resto[1:]
+    if preguntando:
+        resto = resto.rstrip(" .!…") + "?"
+    return resto
+
+
 def entender(texto):
     """'Dile al coche 33 que lo siento' -> ('33', 'lo siento'). Sin coche -> (None, mensaje)."""
     m = RE_CON_COCHE.match(texto)
     if m and (m.group("palabra") or re.match(rf"^\s*{ORDEN}\b", texto, re.I)):
         resto = m.group("m").strip()
         if resto:
-            return m.group("n").lstrip("0") or "0", resto[0].upper() + resto[1:]
+            return m.group("n").lstrip("0") or "0", _pregunta_indirecta(texto, resto)
     m = RE_SIN_COCHE.match(texto)
     if m and m.group("m").strip():
-        resto = m.group("m").strip()
-        return None, resto[0].upper() + resto[1:]
+        return None, _pregunta_indirecta(texto, m.group("m").strip())
     return None, texto.strip()
 
 
+# Como empieza una pregunta en cada idioma. Whisper oye las palabras pero no la
+# entonacion, asi que muchas veces escribe "Estas bien." con punto, y el
+# traductor lo deja como "Are you OK." (medido el 09/10/2026). En espanol se
+# exige la tilde (que, como, cuando...): sin ella suelen ser otra cosa ("Que
+# te vaya bien", "Como siempre").
+INTERROGATIVOS = {
+    "es": r"(?:qu[eé]\s+tal|qué|quién|cómo|cuándo|dónde|cuánt|cuál|por\s*qué|alguien\s+sab|sab[eé]is|sabes\b|hay\s+alguien|est[aá]s\b|est[aá]is\b|"
+          r"puedes\b|pod[eé]is\b|me\s+dejas|vas\s+a\b|ten[eé]is\b|tienes\b|todo\s+bien)",
+    "en": r"(?:what|who|whose|why|where|when|how|which|is|are|am|was|were|do|does|did|can|could|would|will|"
+          r"should|shall|have\s+you|has\s+anyone|anyone|anybody|any\s+idea|you\s+ok|all\s+good)\b",
+    "fr": r"(?:qui|quoi|pourquoi|comment|o[uù]|quand|combien|quel|quelle|est-ce|es-tu|[çc]a\s+va|"
+          r"quelqu'un\s+sait|tu\s+vas\s+bien)\b",
+    "it": r"(?:chi|cosa|perch[eé]|come|dove|quando|quant\w*|qual\w*|qualcuno\s+sa|tutto\s+bene|stai\s+bene)\b",
+    "de": r"(?:wer|was|warum|wie|wo|wann|welche\w*|kann|kannst|k[oö]nnt|hat\s+jemand|wei[sß]\s+jemand|"
+          r"gibt\s+es|alles\s+ok\w*|bist\s+du)\b",
+    "pt": r"(?:quem|o\s+que|porqu[eê]|por\s+que|como|onde|quando|quant\w*|qual|algu[eé]m\s+sabe|"
+          r"est[aá]s\s+bem|tudo\s+bem)\b",
+    "pl": r"(?:kto|co|dlaczego|jak|gdzie|kiedy|ile|kt[oó]r\w*|czy|wszystko\s+ok)\b",
+}
+
+
+# "Que buena pasada" no es una pregunta: es una exclamacion (Whisper le pone la
+# tilde igual y sin esto salia "¿Que buena pasada?").
+EXCLAMACION_ES = (r"qu[eé]\s+(?:buen|buena|bonit|mal|mala|pena|susto|pasada|carrera|ritmo|crack|m[aá]quina|"
+                  r"grande|bestia|tela|fuerte|rapid|r[aá]pid|maniobra|adelantamiento|vuelta|manera|forma)")
+
+
+def puntuar(texto, idioma, pregunta=False):
+    """Si es una pregunta, que lleve su interrogante (y el de apertura en espanol)."""
+    t = texto.strip()
+    if not t:
+        return t
+    if idioma == "es" and not pregunta and re.match(EXCLAMACION_ES, t.lstrip("¡¿"), re.I):
+        t = t.strip("¡¿?!. ")
+        return "¡" + t[0].upper() + t[1:] + "!"
+    if t.endswith("!") and not pregunta:   # "What a good race!" empieza como pregunta y no lo es
+        return t
+    if pregunta or t.endswith("?") or re.match(INTERROGATIVOS.get(idioma, "$^"), t.lstrip("¿"), re.I):
+        t = t.rstrip(" .!…")
+        if not t.endswith("?"):
+            t += "?"
+        if idioma == "es" and not t.startswith("¿"):
+            t = "¿" + t[0].upper() + t[1:]
+        if idioma == "es":   # Whisper escribe "esta" sin tilde y "¿Esta bien?" se traduce "Alright?"
+            t = re.sub(r"^¿(E|e)sta\b", lambda m: "¿" + m.group(1) + "stá", t)
+    return t
+
+
 # ---------------------------------------------------------------- la voz que habla
+# Los pitidos: (hercios, milisegundos). Eran 880/1200 Hz y a Manuel le resultaban
+# muy agudos y molestos; ahora van una octava larga mas abajo (do-mi y sol).
+TONO_INICIO = ((523, 110), (659, 130))    # empieza a escuchar: sube
+TONO_FIN = ((392, 160),)                  # deja de escuchar: baja
+TONO_ENVIADO = ((659, 90),)
+
 class Voz:
     """Habla en un hilo propio. Lo del sistema (repetir tu mensaje, 'enviado') pasa
     siempre primero; los mensajes del chat esperan mientras estas grabando o confirmando."""
@@ -334,6 +430,43 @@ class Voz:
 
     def callar(self):
         self.parar.set()
+
+    def volumen(self, clave="volumen", defecto=80):
+        """0..1, el de la barra de la ventana. Se lee cada vez: moverla se nota al momento."""
+        try:
+            return max(0, min(100, int(self.cfg.get(clave, defecto)))) / 100
+        except (TypeError, ValueError):
+            return defecto / 100
+
+    def pitido(self, *tonos):
+        """Los pitidos de grabar/enviar, con el volumen de la barra y por la salida
+        elegida. Antes eran winsound.Beep: sin volumen y siempre por el altavoz de
+        Windows, aunque la voz fuera por los cascos. tonos = (hercios, milisegundos)..."""
+        try:
+            import numpy as np
+            import pygame
+            formato = pygame.mixer.get_init()
+            if not formato:
+                raise RuntimeError("sin mezclador")
+            frecuencia, _, canales = formato
+            partes = []
+            for hz, ms in tonos:
+                n = int(frecuencia * ms / 1000)
+                onda = np.sin(2 * np.pi * hz * np.arange(n) / frecuencia)
+                borde = max(1, min(n // 2, int(frecuencia * 0.005)))   # sin chasquido al empezar y acabar
+                onda[:borde] *= np.linspace(0, 1, borde)
+                onda[-borde:] *= np.linspace(1, 0, borde)
+                partes.append(onda * 0.35)
+            muestras = (np.concatenate(partes) * 32767).astype(np.int16)
+            if canales > 1:
+                muestras = np.repeat(muestras[:, None], canales, axis=1)
+            sonido = pygame.sndarray.make_sound(np.ascontiguousarray(muestras))
+            sonido.set_volume(self.volumen("volumen_pitido", 40))
+            sonido.play()
+            time.sleep(len(muestras) / frecuencia)
+        except Exception:
+            for hz, ms in tonos:
+                winsound.Beep(hz, ms)
 
     def _mixer(self, pygame):
         try:
@@ -392,6 +525,7 @@ class Voz:
                         break
                 except Exception:
                     pass
+            sapi.Volume = int(self.volumen() * 100)
             sapi.Speak(texto, 1)   # asincrono, para poder cortarla
             while not sapi.WaitUntilDone(100):
                 if self.parar.is_set():
@@ -401,8 +535,10 @@ class Voz:
         if self.parar.is_set():
             return
         pygame.mixer.music.load(mp3)
+        pygame.mixer.music.set_volume(self.volumen())
         pygame.mixer.music.play()
         while pygame.mixer.music.get_busy():
+            pygame.mixer.music.set_volume(self.volumen())   # si mueves la barra mientras habla
             if self.parar.is_set():
                 pygame.mixer.music.stop()
                 break
@@ -504,6 +640,8 @@ class Chat:
         self.eventos = queue.Queue()
         self.voz = Voz(cfg)
         self.entrada = Entrada(cfg, self.eventos)
+        self.vigia = objetivos.Vigia(lambda: api_get("watch/standings", 2),
+                                     lambda: api_get("watch/sessionInfo").get("lapDistance"))
         self.modelo = None
         self.mi_nombre = ""
         threading.Thread(target=self._cerebro, daemon=True).start()
@@ -603,6 +741,12 @@ class Chat:
         import sounddevice as sd
         self.voz.pausado.set()
         self.voz.callar()
+        # LA FOTO: quien va donde en el momento de pulsar. Entre que hablas, te lo
+        # repite y confirmas pasan segundos, y el de delante ya puede ser otro.
+        try:
+            foto = objetivos.foto(api_get("watch/standings", 1), self.vigia.largo, self.vigia.ultimo)
+        except Exception:
+            foto = None
         trozos = []
         disp = None
         if self.cfg["microfono"]:
@@ -612,7 +756,7 @@ class Chat:
                     break
         flujo = sd.InputStream(samplerate=FRECUENCIA, channels=1, dtype="float32", device=disp,
                                callback=lambda datos, *a: trozos.append(datos.copy()))
-        winsound.Beep(880, 120); winsound.Beep(1200, 150)
+        self.voz.pitido(*TONO_INICIO)
         flujo.start()
         self.avisar("estado", "grabando")
         try:
@@ -620,7 +764,7 @@ class Chat:
         except queue.Empty:
             pass
         flujo.stop(); flujo.close()
-        winsound.Beep(440, 150)
+        self.voz.pitido(*TONO_FIN)
         self.avisar("estado", "procesando")
 
         if not trozos or sum(len(t) for t in trozos) < FRECUENCIA * 0.4:
@@ -635,18 +779,39 @@ class Chat:
             self.voz.decir(frase(self.cfg, "no_entendido"))
             return
 
-        numero, mensaje = entender(texto)
+        # a quien va: "al de delante", "al tercero de GT3"... (objetivos.py) o "al 33"
+        objetivo, resto = objetivos.analizar(texto, ORDEN, ENLACE, QUE)
+        coche = None
+        if objetivo:
+            coche = objetivos.resolver(objetivo, foto)
+            if coche is None or coche["yo"]:   # "el segundo de GT3" puedes ser tu
+                self.avisar("log", "✗ " + texto)
+                self.voz.decir(frase(self.cfg, "no_coche"))
+                return
+            numero, mensaje = coche["num"], _pregunta_indirecta(texto, resto)
+        else:
+            numero, mensaje = entender(texto)
+        mensaje = puntuar(mensaje, idioma)
+        es_pregunta = mensaje.endswith("?")
         a_enviar = mensaje
         if self.cfg["traducir_mios"] and idioma != "en":
-            trad, _ = traducir(mensaje, "en", idioma)
+            trad, _ = traducir(para_traducir(mensaje, idioma), "en", idioma)
             if not trad:   # sin internet: que lo traduzca Whisper desde el audio
                 segs, _ = self.modelo.transcribe(audio, language=idioma, task="translate", vad_filter=True)
                 trad = " ".join(s.text.strip() for s in segs).strip()
-                trad = entender(trad)[1] if trad else ""
-            a_enviar = trad or mensaje
-        if numero:
+                if trad:
+                    otro, resto_en = objetivos.analizar(trad, ORDEN, ENLACE, QUE)
+                    trad = resto_en if otro else entender(trad)[1]
+            a_enviar = puntuar(trad, "en", es_pregunta) if trad else mensaje
+        if coche:
+            # buscado por su sitio: es ese coche y no otro, asi que va con nombre aunque el numero se repita
+            a_enviar = f"#{coche['num']} {coche['nombre']}: {a_enviar}"
+            repetir = frase(self.cfg, "para_clase", n=coche["num"],
+                            c=CLASES.get(coche["clase_juego"], coche["clase_juego"]), m=mensaje)
+        elif numero:
             # el juego publica "04" y Whisper oye "4": se comparan sin ceros delante
-            iguales = [c for c in coches() if (c[0].lstrip("0") or "0") == numero]
+            lista = [(c["num"], c["nombre"]) for c in foto["coches"]] if foto else coches()
+            iguales = [c for c in lista if (c[0].lstrip("0") or "0") == numero]
             if iguales:
                 numero = iguales[0][0]
             # numero repetido (pasa en las salas publicas) o que no esta: sin nombre, mejor que uno equivocado
@@ -686,7 +851,7 @@ class Chat:
             return
         try:
             api_enviar_chat(a_enviar)
-            winsound.Beep(1200, 80)
+            self.voz.pitido(*TONO_ENVIADO)
             self.voz.decir(frase(self.cfg, "enviado"))
             self.avisar("log", "→ " + a_enviar)
             anotar("enviado: " + a_enviar)
@@ -907,6 +1072,30 @@ def ventana():
         ttk.Button(marco, text=tx(cfg, "probar"),
                    command=lambda: chat.voz.decir(frase(cfg, "listo"))).grid(row=fila, column=2, padx=(8, 0))
         fila += 1
+
+        # ---- volumenes: no todo el mundo sabe bajarlo en el mezclador de Windows.
+        # Dos barras: la voz y los pitidos por separado (a Manuel el pitido le
+        # molestaba con la voz a buen volumen). Al soltar, una muestra de cada uno.
+        muestras = {"volumen": lambda: chat.voz.decir(frase(cfg, "listo")),
+                    "volumen_pitido": lambda: threading.Thread(target=chat.voz.pitido, args=TONO_INICIO,
+                                                               daemon=True).start()}
+        for clave, defecto in (("volumen", 80), ("volumen_pitido", 40)):
+            etiqueta(clave)
+            v_vol = tk.IntVar(value=int(cfg.get(clave, defecto)))
+            l_vol = ttk.Label(marco, width=5, text=f"{v_vol.get()} %")
+
+            def cambio_vol(valor, clave=clave, l_vol=l_vol):
+                cfg[clave] = int(float(valor))
+                l_vol.configure(text=f"{cfg[clave]} %")
+
+            def soltar_vol(_, clave=clave):
+                guardar()   # al soltar, no a cada paso de la barra
+                muestras[clave]()
+            barra = ttk.Scale(marco, from_=0, to=100, variable=v_vol, command=cambio_vol)
+            barra.grid(row=fila, column=1, sticky="ew")
+            barra.bind("<ButtonRelease-1>", soltar_vol)
+            l_vol.grid(row=fila, column=2, sticky="w", padx=(8, 0))
+            fila += 1
 
         # ---- estado y registro
         ttk.Separator(marco).grid(row=fila, column=0, columnspan=3, sticky="ew", pady=8)
