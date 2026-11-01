@@ -175,7 +175,8 @@ Muchas veces no sabes el número de los demás. No pasa nada: di dónde está.
 • «Dile al de delante de LMP2…» → el LMP2 más cercano por delante (valen Hypercar, LMP2, LMP3 y GT3).
 • «Dile al que me acaba de adelantar…» → el último que te ha pasado (vale durante un minuto).
 • «Dile al tercero…» → el tercero de TU clase. «Dile al tercero de Hypercar…» → el tercero de esa clase. «…de la general» → de toda la carrera.
-• «Dile al que está en posición 15…» → lo mismo que «al decimoquinto», pero más fácil de decir.
+• «Dile al que está en posición 15…» → lo mismo que «al decimoquinto», pero más fácil de decir. También vale «al que está en 15», «al coche en posición quince» o «al coche que va el 15».
+• La clase puede ir delante: «Dile al GT3 en posición 23…», «al GT3 que va quinto…», «al tercer Hypercar…».
 
 ¡OJO, NO ES LO MISMO!
 • «Dile al 15…» → el coche que lleva el NÚMERO 15.
@@ -223,6 +224,7 @@ You often don't know the other drivers' numbers. No problem: say where they are.
 • "Tell who just overtook me…" → the last car that passed you (valid for one minute).
 • "Tell the third…" → third in YOUR class. "Tell the third in Hypercar…" → third in that class. "…overall" → in the whole race.
 • "Tell the car in position 15…" → the same as "the fifteenth", but easier to say.
+• The class can go first: "Tell the GT3 in position 23…", "Tell the Hypercar in position 2…".
 
 CAREFUL, THEY ARE NOT THE SAME!
 • "Tell car 15…" / "Tell 15…" → the car with the NUMBER 15.

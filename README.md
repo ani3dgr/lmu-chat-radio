@@ -22,7 +22,8 @@ When you name a car number, it looks up who is driving it and adds their name. I
 - *"Tell the car in front…"* / *"Tell the car behind…"* — the car right ahead of or behind you on track. *"…in LMP2"* to pick a class.
 - *"Tell who just overtook me…"* — the last car that passed you.
 - *"Tell the third…"* — third in **your** class; *"the third in Hypercar"*, *"…overall"*.
-- *"Tell the car in position 15…"* — easier to say than "fifteenth".
+- *"Tell the car in position 15…"* — easier to say than "fifteenth". Without a class it is **your** class.
+- The class can go first: *"Tell the GT3 in position 23…"*.
 
 Careful: *"Tell 15…"* is the car with **number** 15; *"Tell the car in position 15…"* is the one running **fifteenth**.
 Everything is captured **the moment you press the button**, so it doesn't matter if they pass you while you speak and confirm. The read-back tells you who it found (*"To car 33, GT3: …"*) — if it's not them, just don't confirm.

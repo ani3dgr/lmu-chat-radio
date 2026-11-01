@@ -53,6 +53,9 @@ CARDINALES = {
     "one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9,
     "ten": 10, "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14, "fifteen": 15, "sixteen": 16,
     "seventeen": 17, "eighteen": 18, "nineteen": 19, "twenty": 20,
+    "veintiuno": 21, "veintiuna": 21, "veintidos": 22, "veintidós": 22, "veintitres": 23, "veintitrés": 23,
+    "veinticuatro": 24, "veinticinco": 25, "veintiseis": 26, "veintiséis": 26, "veintisiete": 27,
+    "veintiocho": 28, "veintinueve": 29, "treinta": 30,
 }
 ORDINALES = {
     "primero": 1, "primer": 1, "segundo": 2, "tercero": 3, "tercer": 3, "cuarto": 4, "quinto": 5,
@@ -76,12 +79,18 @@ ORDINALES = {
     "siódmemu": 7, "ósmemu": 8, "dziewiątemu": 9, "dziesiątemu": 10,
 }
 # decimo quinto (separado) -> 15
-_DECENA = r"(?:d[ée]cimo|decimo)\s+(primero|segundo|tercero|cuarto|quinto|sexto|s[ée]ptimo|octavo|noveno)"
+_DECENA = r"(?:d[ée]cimo|decimo|vig[ée]simo)\s+(primero|segundo|tercero|cuarto|quinto|sexto|s[ée]ptimo|octavo|noveno)"
 # la terminacion pegada al numero: "al 3 o al 4" no es "al 3º"
 ORDINAL_DIGITOS = r"(\d{1,2})(?:º|°|ª|o|er|ro|do|to|vo|no|st|nd|rd|th|e|ème|eme)(?![\w])"
 NUMEROS = {**CARDINALES, **ORDINALES}
 _alternativas = lambda d: "|".join(sorted((re.escape(k) for k in d), key=len, reverse=True))
 PALABRA_NUMERO = _alternativas(NUMEROS)
+# "treinta y dos", "cuarenta y cinco"... (las parrillas llegan a 60 coches)
+DECENAS = {"treinta": 30, "cuarenta": 40, "cincuenta": 50, "sesenta": 60,
+           "thirty": 30, "forty": 40, "fifty": 50, "sixty": 60}
+_COMPUESTO = (r"(?:treinta|cuarenta|cincuenta|sesenta)\s+y\s+(?:uno|una|dos|tres|cuatro|cinco|seis|siete|ocho|nueve)|"
+              r"(?:thirty|forty|fifty|sixty)[\s-](?:one|two|three|four|five|six|seven|eight|nine)")
+PALABRA_NUMERO = _COMPUESTO + "|" + _alternativas({**NUMEROS, **DECENAS})
 # "al tercero" si, pero "al uno" o "the one behind" no: ahi solo valen ordinales
 PALABRA_ORDINAL = _alternativas(ORDINALES)
 
@@ -96,8 +105,12 @@ def numero_de(texto):
         return int(m.group(1))
     m = re.fullmatch(_DECENA, t)
     if m:
-        return 10 + NUMEROS[m.group(1)]
-    return NUMEROS.get(t)
+        return (20 if t.startswith("vig") else 10) + NUMEROS[m.group(1)]
+    m = re.fullmatch(_COMPUESTO, t)
+    if m:
+        partes = re.split(r"\s+y\s+|[\s-]", t)
+        return DECENAS[partes[0]] + NUMEROS[partes[-1]]
+    return NUMEROS.get(t) or DECENAS.get(t)
 
 
 # ---------------------------------------------------------------- frases
@@ -116,21 +129,32 @@ ADELANTO = (r"(?:que\s+|who\s+|qui\s+|che\s+|der\s+|kt[oó]ry\s+)?"
             r"pas[oó]|ultrapassar|ultrapassou)|(?:just\s+)?(?:overtook|passed)\s+me|m'a\s+(?:d[ée]pass[ée]|doubl[ée])|"
             r"mi\s+ha\s+(?:sorpassato|superato)|mich\s+(?:gerade\s+)?[üu]berholt(?:\s+hat)?|"
             r"mnie\s+(?:w[lł]a[sś]nie\s+)?wyprzedzi[lł])")
-POSICION = (rf"(?:the\s+|{PRONOMBRE}\s+)?(?:car\s+|one\s+)?(?:que\s+(?:est[aá]|va)\s+|who\s+is\s+|qui\s+est\s+|che\s+[eè]\s+|der\s+|que\s+est[aá]\s+)?"
-            rf"(?:en\s+|in\s+|na\s+|auf\s+)?(?:la\s+|el\s+)?"
+POSICION = (rf"(?:the\s+|{PRONOMBRE}\s+)?(?:(?:car|one|coche|auto|carro|voiture|macchina|wagen)\s+)?(?:que\s+(?:est[aá]|va)\s+|who\s+is\s+|qui\s+est\s+|che\s+[eè]\s+|der\s+|que\s+est[aá]\s+)?"
+            rf"(?:en\s+|in\s+|na\s+|auf\s+|de\s+|en\s+la\s+)?(?:la\s+|el\s+)?"
             rf"(?:posici[oó]n|puesto|position|posizione|posi[cç][aã]o|platz|pozycj\w*|p)\s*"
-            rf"(?P<npos>\d{{1,2}}|{PALABRA_NUMERO})\b")
-VA_N = rf"que\s+(?:est[aá]|va)\s+(?:el\s+)?(?P<nva>\d{{1,2}}|{PALABRA_NUMERO})(?:\s*(?:º|°|o))?\b"
+            rf"(?P<npos>{_DECENA}|\d{{1,2}}|{PALABRA_NUMERO})\b")
+VA_N = rf"(?:(?:coche|car|auto|carro)\s+)?que\s+(?:est[aá]|va)\s+(?:en\s+(?:el\s+|la\s+)?|el\s+)?(?P<nva>{_DECENA}|\d{{1,2}}|{PALABRA_NUMERO})(?:\s*(?:º|°|o))?\b"
 ORDINAL = rf"(?:el\s+|the\s+|le\s+|la\s+|il\s+|den\s+|o\s+)?(?P<nord>{_DECENA}|{ORDINAL_DIGITOS}|(?:{PALABRA_ORDINAL})\b)"
 CLASE = (r"(?:\s*,?\s+(?:de\s+la|del|de|en|in|of|du|des|di|della|der|im|da|z|w)\s+(?:la\s+|the\s+)?"
          r"(?:clase\s+|class\s+|categor[ií]a\s+|cat[ée]gorie\s+|classe\s+|klasse\s+|klasy\s+)?"
          rf"(?P<clase>{'|'.join(p for _, p in CLASES)}|{GENERAL}))?")
 
 
+# la clase DELANTE: "dile al GT3 en posicion 23", "al GT3 que va tercero", "al tercer GT3"
+# (Manuel lo dice asi en carrera, y antes salia el mensaje entero sin destinatario)
+_CLASE_SOLA = rf"(?P<clase>{'|'.join(p for _, p in CLASES)})"
+_RELLENO = r"(?:\s*,?\s*(?:coche|car|auto|n[úu]mero|number|numero)\b)*\s*,?\s*"
+CLASE_ANTES = rf"(?:(?:el|the|le|il|der|o|la)\s+)?(?:(?:coche|car)\s+)?(?:de\s+)?{_CLASE_SOLA}{_RELLENO}"
+
+
 def _compilar(orden, enlace, que):
     cabeza = rf"^\s*(?:{orden}\b[\s,]*)(?:{enlace}\s+)*"
     cola = rf"{CLASE}[\s,.:;-]*(?:{que}\b)?[\s,:]*(?P<m>.+)$"
+    cola_sin = rf"[\s,.:;-]*(?:{que}\b)?[\s,:]*(?P<m>.+)$"
     return [
+        ("posicion", re.compile(cabeza + CLASE_ANTES + POSICION + cola_sin, re.I | re.S)),
+        ("posicion", re.compile(cabeza + CLASE_ANTES + VA_N + cola_sin, re.I | re.S)),
+        ("posicion", re.compile(cabeza + ORDINAL + r"\s+" + _CLASE_SOLA + r"\b" + cola_sin, re.I | re.S)),
         ("adelanto", re.compile(cabeza + rf"(?:el\s+|the\s+one\s+|the\s+car\s+|{PRONOMBRE}\s*,?\s+)?{ADELANTO}" + cola, re.I | re.S)),
         ("delante", re.compile(cabeza + DELANTE + cola, re.I | re.S)),
         ("detras", re.compile(cabeza + DETRAS + cola, re.I | re.S)),

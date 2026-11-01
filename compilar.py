@@ -17,7 +17,7 @@ import subprocess
 import sys
 import zipfile
 
-VERSION = "1.1"
+VERSION = "1.1.1"
 NOMBRE = "LMUChatRadio"
 AQUI = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(AQUI, "dist")
