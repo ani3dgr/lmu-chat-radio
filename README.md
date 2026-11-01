@@ -68,7 +68,7 @@ Python 3.12 on Windows: `pip install faster-whisper sounddevice pygame edge-tts 
 If it's useful to you and you feel like chipping in: [☕ Buy me a coffee (PayPal)](https://paypal.me/ani3dgr).
 And if you also ride a real bike, have a look at **[CicloTracker](https://ciclotracker.com)** — GPS for your bike on Google Play. Supporting it helps us keep building projects like this one.
 
-Also by the same author: [Track Map for Le Mans Ultimate](https://github.com/ani3dgr/mapa-lmu).
+Also by the same author: [LMU Pit Wall](https://github.com/ani3dgr/lmu-pit-wall) (live standings, pit strategy and track map).
 
 ## License
 
